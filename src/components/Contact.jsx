@@ -15,9 +15,34 @@ export default function Contact() {
     return () => observer.disconnect()
   }, [])
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await fetch('https://formspree.io/f/xqerzgnl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+      if (response.ok) {
+        setSent(true)
+        setForm({ name: '', email: '', message: '' })
+      } else {
+        const data = await response.json()
+        throw new Error(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch (err) {
+      setError(err.message || 'Network error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -131,25 +156,33 @@ export default function Contact() {
                     onBlur={e => { e.target.style.borderColor = 'var(--border)' }}
                   />
                 </div>
-                <button
+                 <button
                   type="submit"
+                  disabled={loading}
                   className="py-4 text-xs tracking-widest font-bold transition-all duration-300 border"
                   style={{
-                    background: 'var(--primary)',
-                    color: 'var(--primary-foreground)',
-                    borderColor: 'var(--primary)',
+                    background: loading ? 'var(--muted)' : 'var(--primary)',
+                    color: loading ? 'var(--muted-foreground)' : 'var(--primary-foreground)',
+                    borderColor: loading ? 'var(--border)' : 'var(--primary)',
                     borderRadius: '2px',
-                    cursor: 'pointer',
+                    cursor: loading ? 'not-allowed' : 'pointer',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.boxShadow = '0 0 30px rgba(0,245,255,0.4)'
+                    if (!loading) {
+                      e.currentTarget.style.boxShadow = '0 0 30px rgba(0,245,255,0.4)'
+                    }
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
-                  SEND MESSAGE →
+                  {loading ? 'SENDING...' : 'SEND MESSAGE →'}
                 </button>
+                {error && (
+                  <div className="text-xs text-center mt-2 font-bold" style={{ color: '#ff4d4f' }}>
+                    {error}
+                  </div>
+                )}
               </form>
             )}
           </div>
