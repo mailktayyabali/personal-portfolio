@@ -1,0 +1,94 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+}
+
+:root {
+  --background: #050508;
+  --foreground: #e8e8f0;
+  --card: #0c0c14;
+  --card-foreground: #e8e8f0;
+  --primary: #00f5ff;
+  --primary-foreground: #050508;
+  --secondary: #7c3aed;
+  --secondary-foreground: #e8e8f0;
+  --muted: #13131e;
+  --muted-foreground: #6b6b8a;
+  --accent: #a855f7;
+  --accent-foreground: #050508;
+  --border: rgba(255,255,255,0.06);
+  --ring: #00f5ff;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'JetBrains Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0,245,255,0.2);
+  border-radius: 2px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(-6px) rotate(-1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes grid-move {
+  0% { transform: perspective(600px) rotateX(60deg) translateY(0); }
+  100% { transform: perspective(600px) rotateX(60deg) translateY(60px); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-delayed { animation: float 6s ease-in-out infinite 2s; }
+.animate-float-slow { animation: float 9s ease-in-out infinite 1s; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-fade-up { animation: fade-up 0.8s ease forwards; }
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+.animate-blink {
+  border-right: 2px solid var(--primary);
+  animation: blink 0.75s step-end infinite;
+}
