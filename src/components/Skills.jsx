@@ -47,21 +47,21 @@ export default function Skills() {
   }, [])
 
   return (
-    <section id="skills" ref={ref} className="relative py-32 px-8" style={{ zIndex: 1 }}>
+    <section id="skills" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 03 — CAPABILITIES'}</SectionLabel>
 
-        <div className="flex items-end justify-between mt-4 mb-16">
-          <h2 className="text-5xl font-bold" style={{ letterSpacing: '-0.03em', color: 'var(--foreground)' }}>
+        <div className="flex items-end justify-between mt-4 mb-10 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ letterSpacing: '-0.03em', color: 'var(--foreground)' }}>
             Skills
           </h2>
         </div>
 
-        <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
+        <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-3">
           {skillGroups.map((group, gi) => (
             <div
               key={group.category}
-              className="p-6 border"
+              className="p-5 sm:p-6 border"
               style={{
                 background: 'var(--card)',
                 borderColor: 'var(--border)',
@@ -94,33 +94,36 @@ export default function Skills() {
         </div>
 
         {/* Tech orbit display */}
-        <div className="mt-20 flex flex-wrap gap-3 justify-center">
+        <div className="mt-12 sm:mt-20 flex flex-wrap gap-2.5 sm:gap-3 justify-center">
           {[
             'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Flutter', 'Dart',
             'C++', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'MySQL',
             'Git', 'GitHub', 'Postman', 'Vercel', 'Render', 'REST APIs',
-          ].map((tech, i) => (
+          ].map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1.5 text-xs tracking-widest border transition-all duration-300 cursor-default hover:border-current"
+              className="px-3 py-1.5 text-xs font-mono font-semibold tracking-wider border rounded transition-all duration-300 cursor-default"
               style={{
-                borderColor: 'var(--border)',
-                color: 'var(--muted-foreground)',
-                borderRadius: '1px',
-                opacity: visible ? 1 : 0,
-                transition: `opacity 0.5s ease ${i * 0.03}s, border-color 0.3s, color 0.3s`,
+                borderColor: 'rgba(0, 245, 255, 0.3)',
+                background: 'rgba(0, 245, 255, 0.08)',
+                color: '#ffffff',
+                boxShadow: '0 0 12px rgba(0, 245, 255, 0.12)',
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget
                 el.style.borderColor = 'var(--primary)'
+                el.style.background = 'rgba(0, 245, 255, 0.2)'
                 el.style.color = 'var(--primary)'
-                el.style.textShadow = '0 0 10px var(--primary)'
+                el.style.boxShadow = '0 0 20px rgba(0, 245, 255, 0.5)'
+                el.style.transform = 'translateY(-2px)'
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget
-                el.style.borderColor = 'var(--border)'
-                el.style.color = 'var(--muted-foreground)'
-                el.style.textShadow = 'none'
+                el.style.borderColor = 'rgba(0, 245, 255, 0.3)'
+                el.style.background = 'rgba(0, 245, 255, 0.08)'
+                el.style.color = '#ffffff'
+                el.style.boxShadow = '0 0 12px rgba(0, 245, 255, 0.12)'
+                el.style.transform = 'translateY(0)'
               }}
             >
               {tech}

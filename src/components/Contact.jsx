@@ -46,11 +46,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" ref={ref} className="relative py-32 px-8 pb-40" style={{ zIndex: 1 }}>
+    <section id="contact" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 pb-24 md:pb-40" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 04 — CONTACT'}</SectionLabel>
 
-        <div className="grid gap-16 mt-12 grid-cols-1 md:grid-cols-2">
+        <div className="grid gap-10 md:gap-16 mt-8 sm:mt-12 grid-cols-1 md:grid-cols-2">
           {/* Left: Info */}
           <div
             style={{
@@ -59,7 +59,7 @@ export default function Contact() {
               transition: 'all 0.9s ease 0.1s',
             }}
           >
-            <h2 className="text-5xl font-bold leading-tight mb-8" style={{ letterSpacing: '-0.03em' }}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6 sm:mb-8" style={{ letterSpacing: '-0.03em' }}>
               <span style={{ color: 'var(--foreground)' }}>Let's build</span>
               <br />
               <span style={{
@@ -71,7 +71,7 @@ export default function Contact() {
               </span>
             </h2>
 
-            <p className="text-sm leading-loose mb-10" style={{ color: 'var(--muted-foreground)' }}>
+            <p className="text-xs sm:text-sm leading-loose mb-8 sm:mb-10" style={{ color: 'var(--muted-foreground)' }}>
               Available for freelance engagements, creative collaborations, and full-time roles.
               I specialize in projects that push the boundary of what's possible in the browser.
             </p>
@@ -85,14 +85,14 @@ export default function Contact() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="flex items-center gap-4 group"
+                  className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 group"
                   style={{ textDecoration: 'none' }}
                 >
-                  <span className="text-xs tracking-widest w-20" style={{ color: 'var(--muted-foreground)' }}>
+                  <span className="text-[10px] sm:text-xs tracking-widest sm:w-20" style={{ color: 'var(--muted-foreground)' }}>
                     {link.label}
                   </span>
                   <span
-                    className="text-sm font-bold transition-all duration-300"
+                    className="text-xs sm:text-sm font-bold transition-all duration-300 break-all sm:break-normal font-mono"
                     style={{ color: 'var(--foreground)' }}
                     onMouseEnter={e => { e.target.style.color = 'var(--primary)' }}
                     onMouseLeave={e => { e.target.style.color = 'var(--foreground)' }}
@@ -113,7 +113,7 @@ export default function Contact() {
             }}
           >
             {sent ? (
-              <div className="flex flex-col items-center justify-center h-full text-center gap-4 p-12 border"
+              <div className="flex flex-col items-center justify-center h-full text-center gap-4 p-8 sm:p-12 border"
                 style={{ borderColor: 'rgba(0,245,255,0.2)', background: 'var(--card)', borderRadius: '2px' }}>
                 <div className="text-3xl" style={{ color: 'var(--primary)' }}>✓</div>
                 <div className="text-sm font-bold" style={{ color: 'var(--foreground)' }}>Message received.</div>
@@ -159,7 +159,7 @@ export default function Contact() {
                  <button
                   type="submit"
                   disabled={loading}
-                  className="py-4 text-xs tracking-widest font-bold transition-all duration-300 border"
+                  className="py-3.5 sm:py-4 text-xs tracking-widest font-bold transition-all duration-300 border"
                   style={{
                     background: loading ? 'var(--muted)' : 'var(--primary)',
                     color: loading ? 'var(--muted-foreground)' : 'var(--primary-foreground)',
@@ -188,15 +188,7 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-24 pt-8 border-t flex items-center justify-between" style={{ borderColor: 'var(--border)' }}>
-          <div className="text-xs tracking-widest font-bold" style={{ color: 'var(--primary)' }}>
-            {'<TAYYAB.DEV />'}
-          </div>
-          <div className="text-xs" style={{ color: 'rgba(232, 232, 240, 0.6)' }}>
-            © 2026 Tayyab Ali. All rights reserved.
-          </div>
-        </div>
+
       </div>
     </section>
   )

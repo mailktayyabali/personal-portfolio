@@ -200,9 +200,9 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div className="relative text-center px-8 max-w-5xl mx-auto" style={{ zIndex: 2 }}>
+      <div className="relative text-center px-4 sm:px-8 py-20 max-w-5xl mx-auto" style={{ zIndex: 2 }}>
         <div
-          className="text-xs tracking-widest mb-6"
+          className="text-xs tracking-widest mb-4 sm:mb-6"
           style={{
             color: 'var(--primary)',
             opacity: mounted ? 1 : 0,
@@ -216,7 +216,7 @@ export default function Hero() {
         <h1
           className="font-bold leading-none mb-6"
           style={{
-            fontSize: 'clamp(3.5rem, 10vw, 7.5rem)',
+            fontSize: 'clamp(2.5rem, 10vw, 7.5rem)',
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.8s ease 0.2s',
@@ -243,7 +243,7 @@ export default function Hero() {
         </h1>
 
         <div
-          className="text-base md:text-lg font-bold tracking-wide mb-6 min-h-[3.5rem] md:min-h-[2rem]"
+          className="text-sm sm:text-base md:text-lg font-bold tracking-wide mb-6 min-h-[4rem] sm:min-h-[3.5rem] md:min-h-[2rem] px-2"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(20px)',
@@ -262,7 +262,7 @@ export default function Hero() {
         </div>
 
         <p
-          className="text-sm leading-relaxed mb-10 max-w-lg mx-auto"
+          className="text-xs sm:text-sm leading-relaxed mb-8 sm:mb-10 max-w-lg mx-auto px-2"
           style={{
             color: 'rgba(232, 232, 240, 0.85)',
             opacity: mounted ? 1 : 0,
@@ -275,7 +275,7 @@ export default function Hero() {
         </p>
 
         <div
-          className="flex gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-xs sm:max-w-none mx-auto"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(20px)',
@@ -297,7 +297,7 @@ export default function Hero() {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
           style={{
             opacity: mounted ? 0.4 : 0,
             transition: 'opacity 1s ease 1.2s',
@@ -318,7 +318,7 @@ function GlowButton({ children, primary, onClick }) {
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="px-8 py-3 text-xs tracking-widest font-bold transition-all duration-300 cursor-pointer border"
+      className="w-full sm:w-auto px-6 sm:px-8 py-3 text-xs tracking-widest font-bold transition-all duration-300 cursor-pointer border"
       style={{
         background: primary
           ? hovered ? 'var(--primary)' : 'transparent'

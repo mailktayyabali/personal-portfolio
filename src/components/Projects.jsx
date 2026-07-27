@@ -8,7 +8,6 @@ const projects = [
     category: 'MERN Stack Developer',
     description: 'A full-stack Lost & Found community platform using MongoDB, Express.js, React.js, and Node.js with JWT authentication.',
     tags: ['MERN Stack', 'JWT Auth', 'REST APIs', 'Tailwind CSS'],
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop&auto=format',
     color: 'var(--primary)',
     featured: true,
     link: 'https://thelostlink.vercel.app',
@@ -20,7 +19,6 @@ const projects = [
     category: 'React / Frontend Developer',
     description: 'Modern and responsive business website for a digital marketing agency featuring glassmorphism and performance optimization.',
     tags: ['React.js', 'Tailwind CSS', 'Vite', 'SEO Optimization'],
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop&auto=format',
     color: 'var(--accent)',
     featured: false,
     link: 'https://www.impactedgemarketingagency.com/',
@@ -32,7 +30,6 @@ const projects = [
     category: 'React / Frontend Developer',
     description: 'A GPA calculator web application enabling students to compute academic performance using grade-based and marks-based calculation methods.',
     tags: ['React.js', 'Tailwind CSS', 'Glassmorphism', 'Vite'],
-    image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&h=500&fit=crop&auto=format',
     color: 'var(--secondary)',
     featured: false,
     link: 'https://gpa-calculator-riu.vercel.app',
@@ -43,7 +40,6 @@ const projects = [
 export default function Projects() {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
-  const [active, setActive] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -54,28 +50,32 @@ export default function Projects() {
   }, [])
 
   return (
-    <section id="projects" ref={ref} className="relative py-32 px-8" style={{ zIndex: 1 }}>
+    <section id="projects" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 02 — SELECTED WORK'}</SectionLabel>
 
-        <div className="flex items-end justify-between mt-4 mb-16">
-          <h2 className="text-5xl font-bold" style={{ letterSpacing: '-0.03em', color: 'var(--foreground)' }}>
-            Projects
-          </h2>
-          <span className="text-xs tracking-widest" style={{ color: 'var(--muted-foreground)' }}>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-4 mb-10 sm:mb-16 gap-4">
+          <div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ letterSpacing: '-0.03em', color: 'var(--foreground)' }}>
+              Projects
+            </h2>
+            <p className="text-xs sm:text-sm mt-2" style={{ color: 'var(--muted-foreground)' }}>
+              Showcase of recent full-stack & frontend web engineering applications.
+            </p>
+          </div>
+          <span className="text-[10px] sm:text-xs tracking-widest font-mono" style={{ color: 'var(--muted-foreground)' }}>
             {projects.length} CASE STUDIES
           </span>
         </div>
 
-        <div className="flex flex-col gap-0">
-          {projects.map((project, i) => (
-            <ProjectRow
+        {/* Card Style Showcase Grid (No photos) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {projects.map((project, index) => (
+            <ProjectCard
               key={project.id}
               project={project}
-              index={i}
-              isActive={active === i}
+              index={index}
               visible={visible}
-              onHover={() => setActive(i)}
             />
           ))}
         </div>
@@ -84,117 +84,120 @@ export default function Projects() {
   )
 }
 
-function ProjectRow({
-  project, index, isActive, visible, onHover
-}) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width - 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5
-    setTilt({ x: y * 8, y: -x * 8 })
-  }
+function ProjectCard({ project, index, visible }) {
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <a
-      href={project.link}
-      target="_blank"
-      rel="noreferrer"
-      style={{ textDecoration: 'none', display: 'block' }}
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative flex flex-col justify-between overflow-hidden rounded-xl p-5 sm:p-6 transition-all duration-500"
+      style={{
+        background: 'var(--card)',
+        border: `1px solid ${isHovered ? project.color : 'var(--border)'}`,
+        boxShadow: isHovered ? `0 12px 30px -10px ${project.color}33` : 'none',
+        transform: visible
+          ? isHovered ? 'translateY(-8px)' : 'translateY(0)'
+          : 'translateY(40px)',
+        opacity: visible ? 1 : 0,
+        transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`,
+      }}
     >
-      <div
-        onMouseEnter={onHover}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-        className="group relative flex items-center gap-8 py-6 cursor-pointer border-t"
-        style={{
-          borderColor: 'var(--border)',
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(30px)',
-          transition: `all 0.7s ease ${index * 0.1}s`,
-        }}
-      >
-        {/* Project number */}
-        <div className="shrink-0 text-xs font-bold w-8" style={{
-          color: isActive ? project.color : 'var(--muted-foreground)',
-          transition: 'color 0.3s',
-        }}>
-          {project.id}
+      <div>
+        {/* Top bar with ID, Category & Featured indicator */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <span className="px-2.5 py-1 rounded text-xs font-bold tracking-widest font-mono border border-white/10 text-white bg-white/5">
+              {project.id}
+            </span>
+            <span className="text-xs font-semibold tracking-wider uppercase font-mono" style={{ color: project.color }}>
+              {project.category}
+            </span>
+          </div>
+
+          {project.featured && (
+            <span
+              className="px-2.5 py-1 rounded text-[10px] font-extrabold tracking-widest font-mono uppercase"
+              style={{
+                background: project.color,
+                color: 'var(--primary-foreground)',
+              }}
+            >
+              FEATURED
+            </span>
+          )}
         </div>
 
-        {/* Title */}
-        <div className="flex-1 min-w-0">
-          <h3
-            className="text-xl font-bold transition-all duration-300"
-            style={{
-              color: isActive ? 'var(--foreground)' : 'var(--muted-foreground)',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            {project.title}
-          </h3>
-          <div className="text-xs tracking-widest mt-1" style={{ color: 'var(--muted-foreground)', opacity: isActive ? 1 : 0.5 }}>
-            {project.category}
-          </div>
-        </div>
+        {/* Project Title */}
+        <h3 className="text-xl font-bold mb-3 tracking-tight transition-colors duration-300" style={{ color: 'var(--foreground)' }}>
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(232, 232, 240, 0.75)' }}>
+          {project.description}
+        </p>
 
         {/* Tags */}
-        <div className="hidden md:flex gap-2 flex-wrap">
-          {project.tags.map(tag => (
-            <span key={tag} className="px-2 py-1 text-xs tracking-wider border" style={{
-              borderColor: isActive ? project.color : 'var(--border)',
-              color: isActive ? project.color : 'var(--muted-foreground)',
-              borderRadius: '1px',
-              transition: 'all 0.3s',
-            }}>
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 text-xs tracking-wide font-mono rounded border transition-colors duration-300"
+              style={{
+                borderColor: isHovered ? `${project.color}aa` : 'rgba(255, 255, 255, 0.18)',
+                background: isHovered ? `${project.color}15` : 'rgba(255, 255, 255, 0.06)',
+                color: isHovered ? project.color : '#e8e8f0',
+              }}
+            >
               {tag}
             </span>
           ))}
         </div>
-
-        {/* Hover image preview with 3D tilt */}
-        <div
-          className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 overflow-hidden"
-          style={{
-            width: 240,
-            height: 150,
-            opacity: isActive ? 1 : 0,
-            transform: `perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) ${isActive ? 'scale(1)' : 'scale(0.9)'}`,
-            transition: 'opacity 0.3s, transform 0.15s ease-out',
-            zIndex: 10,
-            borderRadius: '2px',
-            border: `1px solid ${project.color}33`,
-          }}
-        >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            style={{ filter: 'saturate(0.7) contrast(1.1)' }}
-          />
-          <div className="absolute inset-0" style={{
-            background: `linear-gradient(135deg, ${project.color}22, transparent)`,
-          }} />
-          <div className="absolute bottom-2 left-3 right-3">
-            <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
-              {project.description.slice(0, 80)}...
-            </p>
-          </div>
-        </div>
-
-        {/* Arrow */}
-        <div
-          className="shrink-0 text-lg transition-all duration-300"
-          style={{
-            color: project.color,
-            opacity: isActive ? 1 : 0,
-            transform: isActive ? 'translateX(0)' : 'translateX(-8px)',
-          }}
-        >
-          →
-        </div>
       </div>
-    </a>
+
+      {/* Action Links */}
+      <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded text-xs font-bold font-mono tracking-wider transition-all duration-300 border"
+            style={{
+              background: isHovered ? project.color : 'transparent',
+              color: isHovered ? 'var(--primary-foreground)' : 'var(--foreground)',
+              borderColor: isHovered ? project.color : 'rgba(255,255,255,0.15)',
+            }}
+          >
+            <span>LIVE DEMO</span>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        )}
+
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="p-2.5 rounded text-xs font-mono transition-all duration-300 border hover:border-white/40"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              borderColor: 'var(--border)',
+              color: 'var(--muted-foreground)',
+            }}
+            title="View Source Code"
+          >
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
   )
 }
+
+

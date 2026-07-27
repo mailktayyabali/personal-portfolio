@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
+import chatgptImage from '../assets/ChatGPT Image Jul 24, 2026, 05_01_56 PM.png'
 
 export default function About() {
   const ref = useRef(null)
@@ -13,14 +14,14 @@ export default function About() {
   }, [])
 
   return (
-    <section id="about" ref={ref} className="relative py-32 px-8" style={{ zIndex: 1 }}>
+    <section id="about" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 01 — ABOUT'}</SectionLabel>
 
-        <div className="grid gap-16 mt-12 grid-cols-1 md:grid-cols-2">
+        <div className="grid gap-12 md:gap-16 mt-8 sm:mt-12 grid-cols-1 md:grid-cols-2">
           {/* Left: Portrait with 3D frame */}
           <div
-            className="relative"
+            className="relative max-w-sm mx-auto md:max-w-none w-full"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? 'translateX(0)' : 'translateX(-40px)',
@@ -30,10 +31,10 @@ export default function About() {
             <TiltCard>
               <div className="relative overflow-hidden" style={{ aspectRatio: '3/4', borderRadius: '2px' }}>
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&auto=format"
+                  src={chatgptImage}
                   alt="Tayyab Ali — MERN Stack & Mobile Developer"
                   className="w-full h-full object-cover"
-                  style={{ filter: 'grayscale(20%) contrast(1.1)' }}
+                  style={{ filter: 'grayscale(10%) contrast(1.05)' }}
                 />
                 <div className="absolute inset-0" style={{
                   background: 'linear-gradient(180deg, transparent 50%, rgba(5,5,8,0.8) 100%)',
@@ -44,28 +45,28 @@ export default function About() {
             </TiltCard>
 
             {/* Stat badge */}
-            <div className="absolute -bottom-6 -right-6 p-5 border"
+            <div className="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-6 p-3 sm:p-5 border"
               style={{
                 background: 'var(--card)',
                 borderColor: 'rgba(0,245,255,0.15)',
                 borderRadius: '2px',
                 backdropFilter: 'blur(10px)',
               }}>
-              <div className="text-3xl font-bold" style={{ color: 'var(--primary)' }}>3.27</div>
-              <div className="text-xs tracking-widest mt-1" style={{ color: 'var(--muted-foreground)' }}>CGPA</div>
+              <div className="text-2xl sm:text-3xl font-bold" style={{ color: 'var(--primary)' }}>3.27</div>
+              <div className="text-[10px] sm:text-xs tracking-widest mt-0.5 sm:mt-1" style={{ color: 'var(--muted-foreground)' }}>CGPA</div>
             </div>
           </div>
 
           {/* Right: Bio */}
           <div
-            className="flex flex-col justify-center gap-6"
+            className="flex flex-col justify-center gap-4 sm:gap-6 mt-4 md:mt-0"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? 'translateX(0)' : 'translateX(40px)',
               transition: 'all 0.9s ease 0.3s',
             }}
           >
-            <h2 className="text-4xl font-bold leading-tight" style={{ letterSpacing: '-0.02em' }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight" style={{ letterSpacing: '-0.02em' }}>
               <span style={{ color: 'var(--foreground)' }}>Building the </span>
               <span style={{
                 background: 'linear-gradient(90deg, var(--primary), var(--accent))',
@@ -78,20 +79,20 @@ export default function About() {
               <span style={{ color: 'var(--foreground)' }}>in the browser.</span>
             </h2>
 
-            <p className="text-sm leading-loose" style={{ color: 'rgba(232, 232, 240, 0.85)' }}>
+            <p className="text-xs sm:text-sm leading-loose" style={{ color: 'rgba(232, 232, 240, 0.85)' }}>
               I am a detail-oriented MERN Stack Developer focused on building high-performance, scalable web
               applications. With hands-on experience across the entire software development lifecycle, I specialize
               in creating robust backend services using Node.js & Express.js, designing efficient database schemas
               in MongoDB & MySQL, and crafting clean, responsive user interfaces with React.js & Tailwind CSS.
             </p>
 
-            <p className="text-sm leading-loose" style={{ color: 'rgba(232, 232, 240, 0.85)' }}>
+            <p className="text-xs sm:text-sm leading-loose" style={{ color: 'rgba(232, 232, 240, 0.85)' }}>
               Beyond the MERN stack, I have a solid foundation in computer science principles, with practical experience
               in OOP using C++, API testing with Postman, version control via Git, and seamless deployments on Vercel & Render.
               I thrive on solving complex logic puzzles and translating requirements into production-ready software.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-2">
               {[
                 { label: 'LOCATION', value: 'Lahore, Pakistan' },
                 { label: 'FOCUS', value: 'MERN Stack' },
@@ -103,8 +104,8 @@ export default function About() {
                   borderRadius: '2px',
                   background: 'var(--muted)',
                 }}>
-                  <div className="text-xs tracking-widest mb-1" style={{ color: 'var(--muted-foreground)' }}>{item.label}</div>
-                  <div className="text-sm font-bold" style={{ color: 'var(--foreground)' }}>{item.value}</div>
+                  <div className="text-[10px] sm:text-xs tracking-widest mb-1" style={{ color: 'var(--muted-foreground)' }}>{item.label}</div>
+                  <div className="text-xs sm:text-sm font-bold" style={{ color: 'var(--foreground)' }}>{item.value}</div>
                 </div>
               ))}
             </div>
