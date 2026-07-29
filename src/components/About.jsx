@@ -14,7 +14,7 @@ export default function About() {
   }, [])
 
   return (
-    <section id="about" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8" style={{ zIndex: 1 }}>
+    <section id="about" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 overflow-hidden w-full max-w-full" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 01 — ABOUT'}</SectionLabel>
 
@@ -24,7 +24,7 @@ export default function About() {
             className="relative max-w-sm mx-auto md:max-w-none w-full"
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(-40px)',
+              transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.9s ease 0.1s',
             }}
           >
@@ -45,14 +45,14 @@ export default function About() {
             </TiltCard>
 
             {/* Stat badge */}
-            <div className="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-6 p-3 sm:p-5 border"
+            <div className="absolute -bottom-4 right-2 sm:-bottom-6 sm:right-0 md:-right-4 p-3 sm:p-5 border"
               style={{
                 background: 'var(--card)',
                 borderColor: 'rgba(0,245,255,0.15)',
                 borderRadius: '2px',
                 backdropFilter: 'blur(10px)',
               }}>
-              <div className="text-2xl sm:text-3xl font-bold" style={{ color: 'var(--primary)' }}>3.27</div>
+              <div className="text-xl sm:text-3xl font-bold" style={{ color: 'var(--primary)' }}>3.27</div>
               <div className="text-[10px] sm:text-xs tracking-widest mt-0.5 sm:mt-1" style={{ color: 'var(--muted-foreground)' }}>CGPA</div>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function About() {
             className="flex flex-col justify-center gap-4 sm:gap-6 mt-4 md:mt-0"
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(40px)',
+              transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.9s ease 0.3s',
             }}
           >
@@ -92,20 +92,20 @@ export default function About() {
               I thrive on solving complex logic puzzles and translating requirements into production-ready software.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-2">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 mt-2">
               {[
-                { label: 'LOCATION', value: 'Lahore, Pakistan' },
+                { label: 'LOCATION', value: 'Lahore, PK' },
                 { label: 'FOCUS', value: 'MERN Stack' },
-                { label: 'EDUCATION', value: 'BS Computer Science' },
-                { label: 'STATUS', value: 'Open for Roles' },
+                { label: 'EDUCATION', value: 'BS Comp Sci' },
+                { label: 'STATUS', value: 'Available' },
               ].map(item => (
-                <div key={item.label} className="p-3 border" style={{
+                <div key={item.label} className="p-2.5 sm:p-3 border" style={{
                   borderColor: 'var(--border)',
                   borderRadius: '2px',
                   background: 'var(--muted)',
                 }}>
-                  <div className="text-[10px] sm:text-xs tracking-widest mb-1" style={{ color: 'var(--muted-foreground)' }}>{item.label}</div>
-                  <div className="text-xs sm:text-sm font-bold" style={{ color: 'var(--foreground)' }}>{item.value}</div>
+                  <div className="text-[9px] sm:text-xs tracking-widest mb-0.5 sm:mb-1" style={{ color: 'var(--muted-foreground)' }}>{item.label}</div>
+                  <div className="text-xs sm:text-sm font-bold truncate" style={{ color: 'var(--foreground)' }}>{item.value}</div>
                 </div>
               ))}
             </div>

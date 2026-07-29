@@ -33,10 +33,10 @@ export default function App() {
   }, [])
 
   return (
-    <div className="relative min-h-screen" style={{ background: 'var(--background)' }}>
+    <div className="relative min-h-screen w-full max-w-full overflow-x-hidden" style={{ background: 'var(--background)' }}>
       <GridBackground />
       <Nav activeSection={activeSection} onSectionChange={setActiveSection} />
-      <main>
+      <main className="relative w-full max-w-full overflow-x-hidden">
         <Hero />
         <About />
         <Projects />

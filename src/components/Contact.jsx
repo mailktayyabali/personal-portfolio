@@ -46,7 +46,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 pb-24 md:pb-40" style={{ zIndex: 1 }}>
+    <section id="contact" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 pb-24 md:pb-40 overflow-hidden w-full max-w-full" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 04 — CONTACT'}</SectionLabel>
 
@@ -55,7 +55,7 @@ export default function Contact() {
           <div
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(-30px)',
+              transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.9s ease 0.1s',
             }}
           >
@@ -85,14 +85,16 @@ export default function Contact() {
                 <a
                   key={link.label}
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 group"
                   style={{ textDecoration: 'none' }}
                 >
-                  <span className="text-[10px] sm:text-xs tracking-widest sm:w-20" style={{ color: 'var(--muted-foreground)' }}>
+                  <span className="text-[10px] sm:text-xs tracking-widest sm:w-20 shrink-0" style={{ color: 'var(--muted-foreground)' }}>
                     {link.label}
                   </span>
                   <span
-                    className="text-xs sm:text-sm font-bold transition-all duration-300 break-all sm:break-normal font-mono"
+                    className="text-xs sm:text-sm font-bold transition-all duration-300 break-all font-mono"
                     style={{ color: 'var(--foreground)' }}
                     onMouseEnter={e => { e.target.style.color = 'var(--primary)' }}
                     onMouseLeave={e => { e.target.style.color = 'var(--foreground)' }}
@@ -108,7 +110,7 @@ export default function Contact() {
           <div
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(30px)',
+              transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.9s ease 0.3s',
             }}
           >
@@ -144,7 +146,7 @@ export default function Contact() {
                     onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                     placeholder="Tell me about your project..."
                     required
-                    className="w-full px-4 py-3 text-sm resize-none border outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 text-base sm:text-sm resize-none border outline-none transition-all duration-300"
                     style={{
                       background: 'var(--muted)',
                       borderColor: 'var(--border)',
@@ -159,7 +161,7 @@ export default function Contact() {
                  <button
                   type="submit"
                   disabled={loading}
-                  className="py-3.5 sm:py-4 text-xs tracking-widest font-bold transition-all duration-300 border"
+                  className="py-3.5 sm:py-4 text-xs tracking-widest font-bold transition-all duration-300 border min-h-[48px]"
                   style={{
                     background: loading ? 'var(--muted)' : 'var(--primary)',
                     color: loading ? 'var(--muted-foreground)' : 'var(--primary-foreground)',
@@ -206,7 +208,7 @@ function FormField({ label, value, onChange, placeholder, type = 'text' }) {
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         required
-        className="w-full px-4 py-3 text-sm border outline-none transition-all duration-300"
+        className="w-full px-4 py-3 text-base sm:text-sm border outline-none transition-all duration-300"
         style={{
           background: 'var(--muted)',
           borderColor: 'var(--border)',

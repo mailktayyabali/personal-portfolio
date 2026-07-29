@@ -47,7 +47,7 @@ export default function Skills() {
   }, [])
 
   return (
-    <section id="skills" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8" style={{ zIndex: 1 }}>
+    <section id="skills" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 overflow-hidden w-full max-w-full" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 03 — CAPABILITIES'}</SectionLabel>
 
@@ -57,7 +57,7 @@ export default function Skills() {
           </h2>
         </div>
 
-        <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-3">
+        <div className="grid gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group, gi) => (
             <div
               key={group.category}
@@ -94,7 +94,7 @@ export default function Skills() {
         </div>
 
         {/* Tech orbit display */}
-        <div className="mt-12 sm:mt-20 flex flex-wrap gap-2.5 sm:gap-3 justify-center">
+        <div className="mt-12 sm:mt-20 flex flex-wrap gap-2 sm:gap-3 justify-center">
           {[
             'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Flutter', 'Dart',
             'C++', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'MySQL',
@@ -102,7 +102,7 @@ export default function Skills() {
           ].map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1.5 text-xs font-mono font-semibold tracking-wider border rounded transition-all duration-300 cursor-default"
+              className="px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-mono font-semibold tracking-wider border rounded transition-all duration-300 cursor-default"
               style={{
                 borderColor: 'rgba(0, 245, 255, 0.3)',
                 background: 'rgba(0, 245, 255, 0.08)',

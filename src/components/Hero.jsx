@@ -6,6 +6,10 @@ import * as THREE from 'three'
 // Mouse and scroll tracker to animate the 3D scene
 function SceneContent({ mouse }) {
   const groupRef = useRef()
+  const { viewport } = useThree()
+
+  const isSmallScreen = viewport.width < 5.5
+  const scaleFactor = isSmallScreen ? 0.65 : 1.0
 
   useFrame((state) => {
     if (!groupRef.current) return
@@ -14,8 +18,8 @@ function SceneContent({ mouse }) {
     const scrollY = window.scrollY
     
     // Interpolate tilt of the entire 3D container based on mouse pointer
-    const targetX = (mouse.x * Math.PI) / 8
-    const targetY = (mouse.y * Math.PI) / 8
+    const targetX = (mouse.x * Math.PI) / (isSmallScreen ? 14 : 8)
+    const targetY = (mouse.y * Math.PI) / (isSmallScreen ? 14 : 8)
     groupRef.current.rotation.y += (targetX - groupRef.current.rotation.y) * 0.05
     groupRef.current.rotation.x += (targetY - groupRef.current.rotation.x) * 0.05
     
@@ -26,7 +30,7 @@ function SceneContent({ mouse }) {
   })
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={[scaleFactor, scaleFactor, scaleFactor]}>
       {/* Top Left Floating Cube */}
       <Float speed={2} floatIntensity={1.5} rotationIntensity={1} position={[-2.2, 1.4, 0]}>
         <FloatingMesh shape="cube" color="#00f5ff" size={0.5} />
@@ -183,7 +187,7 @@ export default function Hero() {
       id="home"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden py-16 sm:py-24 w-full max-w-full"
       style={{ zIndex: 1 }}
     >
       {/* 3D Canvas Background replacing 2D SVGs */}
@@ -200,9 +204,9 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div className="relative text-center px-4 sm:px-8 py-20 max-w-5xl mx-auto" style={{ zIndex: 2 }}>
+      <div className="relative text-center px-4 sm:px-8 py-12 sm:py-20 max-w-5xl mx-auto w-full" style={{ zIndex: 2 }}>
         <div
-          className="text-xs tracking-widest mb-4 sm:mb-6"
+          className="text-xs sm:text-xs tracking-widest mb-3 sm:mb-6"
           style={{
             color: 'var(--primary)',
             opacity: mounted ? 1 : 0,
@@ -214,9 +218,9 @@ export default function Hero() {
         </div>
 
         <h1
-          className="font-bold leading-none mb-6"
+          className="font-bold leading-none mb-5 sm:mb-6"
           style={{
-            fontSize: 'clamp(2.5rem, 10vw, 7.5rem)',
+            fontSize: 'clamp(2.1rem, 9.5vw, 7.5rem)',
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.8s ease 0.2s',
@@ -243,7 +247,7 @@ export default function Hero() {
         </h1>
 
         <div
-          className="text-sm sm:text-base md:text-lg font-bold tracking-wide mb-6 min-h-[4rem] sm:min-h-[3.5rem] md:min-h-[2rem] px-2"
+          className="text-xs sm:text-base md:text-lg font-bold tracking-wide mb-6 min-h-[4.5rem] sm:min-h-[3.5rem] md:min-h-[2.5rem] flex items-center justify-center px-2"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(20px)',

@@ -13,7 +13,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative border-t mt-20" style={{ zIndex: 1, borderColor: 'rgba(0,245,255,0.15)', background: 'linear-gradient(180deg, rgba(5,5,8,0.5) 0%, rgba(12,12,20,0.95) 100%)' }}>
+    <footer className="relative border-t mt-20 overflow-hidden w-full max-w-full" style={{ zIndex: 1, borderColor: 'rgba(0,245,255,0.15)', background: 'linear-gradient(180deg, rgba(5,5,8,0.5) 0%, rgba(12,12,20,0.95) 100%)' }}>
       {/* Top glowing line gradient effect */}
       <div 
         className="absolute top-0 left-0 right-0 h-[1px]" 
@@ -22,13 +22,13 @@ export default function Footer() {
         }} 
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 pt-16 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b" style={{ borderColor: 'var(--border)' }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12 pb-12 border-b" style={{ borderColor: 'var(--border)' }}>
           
           {/* Brand Info (Cols 1-5) */}
-          <div className="md:col-span-5 flex flex-col justify-between">
+          <div className="sm:col-span-2 md:col-span-5 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex flex-wrap items-center gap-3 mb-4">
                 <span className="text-xl font-bold tracking-wider font-mono" style={{ color: 'var(--primary)' }}>
                   {'<TAYYAB.DEV />'}
                 </span>
@@ -43,7 +43,7 @@ export default function Footer() {
             </div>
 
             {/* Quick Tech Badges */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-2 pt-2 mb-4 md:mb-0">
               {['React.js', 'Node.js', 'Express', 'MongoDB', 'Tailwind', 'JavaScript'].map((tech) => (
                 <span 
                   key={tech} 
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links (Cols 6-8) */}
-          <div className="md:col-span-3">
+          <div className="sm:col-span-1 md:col-span-3">
             <h4 className="text-xs font-mono font-bold tracking-widest uppercase mb-4" style={{ color: 'var(--primary)' }}>
               // Navigation
             </h4>
@@ -85,7 +85,7 @@ export default function Footer() {
           </div>
 
           {/* Connect & Socials (Cols 9-12) */}
-          <div className="md:col-span-4 flex flex-col justify-between">
+          <div className="sm:col-span-1 md:col-span-4 flex flex-col justify-between">
             <div>
               <h4 className="text-xs font-mono font-bold tracking-widest uppercase mb-4" style={{ color: 'var(--primary)' }}>
                 // Connect

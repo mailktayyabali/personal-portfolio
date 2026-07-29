@@ -94,24 +94,26 @@ export default function Nav({ activeSection, onSectionChange }) {
 
       {/* Side Panel Drawer */}
       <div
-        className="fixed top-0 right-0 bottom-0 z-50 md:hidden w-[80vw] max-w-xs h-full flex flex-col justify-between p-6 shadow-2xl border-l"
+        className="fixed top-0 right-0 bottom-0 z-50 md:hidden w-[85vw] max-w-xs h-[100dvh] flex flex-col justify-between p-5 sm:p-6 shadow-2xl border-l overflow-y-auto"
         style={{
-          background: 'rgba(10, 10, 16, 0.96)',
+          background: 'rgba(10, 10, 16, 0.98)',
           backdropFilter: 'blur(25px)',
           borderColor: 'rgba(0, 245, 255, 0.15)',
           transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+          visibility: mobileMenuOpen ? 'visible' : 'hidden',
+          pointerEvents: mobileMenuOpen ? 'auto' : 'none',
           transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between w-full pb-4 border-b border-white/10">
+        <div className="flex items-center justify-between w-full pb-4 border-b border-white/10 shrink-0">
           <div className="text-xs font-bold tracking-widest font-mono" style={{ color: 'var(--primary)' }}>
             {'<MENU />'}
           </div>
 
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="p-2 text-white bg-white/5 border border-white/15 rounded-lg cursor-pointer transition-all duration-300 hover:border-cyan-400"
+            className="p-2.5 min-w-[40px] min-h-[40px] flex items-center justify-center text-white bg-white/5 border border-white/15 rounded-lg cursor-pointer transition-all duration-300 hover:border-cyan-400"
             aria-label="Close menu"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,14 +123,14 @@ export default function Nav({ activeSection, onSectionChange }) {
         </div>
 
         {/* Drawer Links */}
-        <div className="my-auto flex flex-col gap-3 py-6">
+        <div className="my-auto flex flex-col gap-3 py-6 shrink-0">
           {links.map(({ id, number }) => {
             const isActive = activeSection === id
             return (
               <button
                 key={id}
                 onClick={() => handleClick(id)}
-                className="group flex items-center justify-between text-left py-2.5 px-3.5 rounded-lg border transition-all duration-300 bg-transparent cursor-pointer font-mono"
+                className="group flex items-center justify-between text-left py-3 px-4 rounded-lg border transition-all duration-300 bg-transparent cursor-pointer font-mono min-h-[46px]"
                 style={{
                   borderColor: isActive ? 'var(--primary)' : 'rgba(255, 255, 255, 0.08)',
                   background: isActive ? 'rgba(0, 245, 255, 0.08)' : 'rgba(255, 255, 255, 0.02)',
@@ -139,7 +141,7 @@ export default function Nav({ activeSection, onSectionChange }) {
                     {number}
                   </span>
                   <span
-                    className="text-base font-bold tracking-wider uppercase"
+                    className="text-sm sm:text-base font-bold tracking-wider uppercase"
                     style={{
                       color: isActive ? 'var(--primary)' : '#ffffff',
                     }}
@@ -160,7 +162,7 @@ export default function Nav({ activeSection, onSectionChange }) {
         </div>
 
         {/* Drawer Footer */}
-        <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
+        <div className="pt-4 border-t border-white/10 flex flex-col gap-2 shrink-0">
           <div className="text-[10px] font-mono text-gray-400">
             TAYYAB ALI — MERN DEV
           </div>

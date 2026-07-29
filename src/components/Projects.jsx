@@ -50,7 +50,7 @@ export default function Projects() {
   }, [])
 
   return (
-    <section id="projects" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8" style={{ zIndex: 1 }}>
+    <section id="projects" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 overflow-hidden w-full max-w-full" style={{ zIndex: 1 }}>
       <div className="max-w-6xl mx-auto">
         <SectionLabel>{'// 02 — SELECTED WORK'}</SectionLabel>
 
@@ -69,7 +69,7 @@ export default function Projects() {
         </div>
 
         {/* Card Style Showcase Grid (No photos) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -105,19 +105,19 @@ function ProjectCard({ project, index, visible }) {
     >
       <div>
         {/* Top bar with ID, Category & Featured indicator */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 rounded text-xs font-bold tracking-widest font-mono border border-white/10 text-white bg-white/5">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded text-[11px] sm:text-xs font-bold tracking-widest font-mono border border-white/10 text-white bg-white/5">
               {project.id}
             </span>
-            <span className="text-xs font-semibold tracking-wider uppercase font-mono" style={{ color: project.color }}>
+            <span className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase font-mono" style={{ color: project.color }}>
               {project.category}
             </span>
           </div>
 
           {project.featured && (
             <span
-              className="px-2.5 py-1 rounded text-[10px] font-extrabold tracking-widest font-mono uppercase"
+              className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded text-[9px] sm:text-[10px] font-extrabold tracking-widest font-mono uppercase shrink-0"
               style={{
                 background: project.color,
                 color: 'var(--primary-foreground)',
@@ -129,21 +129,21 @@ function ProjectCard({ project, index, visible }) {
         </div>
 
         {/* Project Title */}
-        <h3 className="text-xl font-bold mb-3 tracking-tight transition-colors duration-300" style={{ color: 'var(--foreground)' }}>
+        <h3 className="text-lg sm:text-xl font-bold mb-3 tracking-tight transition-colors duration-300" style={{ color: 'var(--foreground)' }}>
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(232, 232, 240, 0.75)' }}>
+        <p className="text-xs sm:text-sm leading-relaxed mb-6" style={{ color: 'rgba(232, 232, 240, 0.75)' }}>
           {project.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2.5 py-1 text-xs tracking-wide font-mono rounded border transition-colors duration-300"
+              className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs tracking-wide font-mono rounded border transition-colors duration-300"
               style={{
                 borderColor: isHovered ? `${project.color}aa` : 'rgba(255, 255, 255, 0.18)',
                 background: isHovered ? `${project.color}15` : 'rgba(255, 255, 255, 0.06)',
@@ -163,7 +163,7 @@ function ProjectCard({ project, index, visible }) {
             href={project.link}
             target="_blank"
             rel="noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded text-xs font-bold font-mono tracking-wider transition-all duration-300 border"
+            className="flex-1 inline-flex items-center justify-center gap-2 py-3 sm:py-2.5 px-3 rounded text-xs font-bold font-mono tracking-wider transition-all duration-300 border min-h-[40px]"
             style={{
               background: isHovered ? project.color : 'transparent',
               color: isHovered ? 'var(--primary-foreground)' : 'var(--foreground)',
