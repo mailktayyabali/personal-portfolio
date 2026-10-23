@@ -31,12 +31,9 @@ export default function Hero() {
           <div className="w-5 h-5 rounded-full overflow-hidden border border-white/20 shrink-0">
             <img src={chatgptImage} alt="Tayyab Ali" className="w-full h-full object-cover object-top" />
           </div>
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
-          <span className="text-[11px] sm:text-xs tracking-wide">
-            Tayyab Ali · Available for Freelance Projects & Contracts
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span className="text-[11px] sm:text-xs tracking-wide text-slate-300">
+            Tayyab Ali · Available for Freelance & Web Projects
           </span>
         </div>
 
@@ -67,7 +64,7 @@ export default function Hero() {
           }}
         >
           I'm a Full-Stack MERN Developer who works directly with founders, businesses, and creators.
-          From custom React platforms and Shopify/WordPress stores to AI workflow automations—delivered on time with zero agency overhead.
+          From custom React platforms and Shopify/WordPress stores to AI workflow automations, delivered on time with zero agency overhead.
         </p>
 
         {/* Action CTAs: Lead Generation Focus */}
@@ -80,10 +77,10 @@ export default function Hero() {
           }}
         >
           <button
-            onClick={() => document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 cursor-pointer"
           >
-            <span>Get a Free Project Estimate</span>
+            <span>Start a Project</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 

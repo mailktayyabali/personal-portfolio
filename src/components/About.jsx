@@ -20,11 +20,8 @@ export default function About() {
       <div className="flex flex-col gap-12">
         {/* Section Header */}
         <div>
-          <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-2">
-            05 // About Me
-          </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Background & Engineering Philosophy
+            About & Engineering Background
           </h2>
         </div>
 
@@ -42,7 +39,7 @@ export default function About() {
               <div className="aspect-[4/5] relative">
                 <img
                   src={chatgptImage}
-                  alt="Tayyab Ali — Full-Stack Developer"
+                  alt="Tayyab Ali, Full-Stack Developer"
                   className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#090a11] via-transparent to-transparent opacity-80" />
@@ -82,7 +79,7 @@ export default function About() {
                 My background is anchored in solid computer science foundations from Riphah International University. I focus on writing clean, modular JavaScript and C++, structuring RESTful API architectures, designing normalized database schemas, and securing user workflows with JWT authentication.
               </p>
               <p>
-                I enjoy taking projects through the complete software lifecycle—from initial data modeling and API testing with Postman to crafting responsive frontend interfaces with React and deploying production builds on Vercel and Render.
+                I enjoy taking projects through the complete software lifecycle, from initial data modeling and API testing with Postman to crafting responsive frontend interfaces with React and deploying production builds on Vercel and Render.
               </p>
             </div>
 

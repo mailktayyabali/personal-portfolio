@@ -109,11 +109,8 @@ export default function Services() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6">
           <div>
-            <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-2">
-              01 // Services I Offer
-            </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Web Development, E-Commerce & Automations
+              Services & Web Solutions
             </h2>
             <p className="text-sm text-slate-400 mt-2 max-w-2xl">
               From custom web applications and business portfolios to Shopify e-commerce, AI automations, and ongoing website handling.
@@ -121,10 +118,10 @@ export default function Services() {
           </div>
 
           <button
-            onClick={() => document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="inline-flex items-center gap-1.5 text-xs font-mono text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
           >
-            <span>Estimate your project cost & scope</span>
+            <span>Have a project in mind? Let's talk</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

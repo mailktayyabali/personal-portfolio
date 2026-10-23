@@ -17,7 +17,7 @@ const timelines = [
   'Flexible / Ongoing',
 ]
 
-export default function Contact({ prefilledScope }) {
+export default function Contact() {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
   const [sent, setSent] = useState(false)
@@ -30,18 +30,6 @@ export default function Contact({ prefilledScope }) {
     timeline: '2 - 4 weeks',
     message: '',
   })
-
-  // Sync with estimator selection if user configured scope
-  useEffect(() => {
-    if (prefilledScope) {
-      setForm((prev) => ({
-        ...prev,
-        service: prefilledScope.type || prev.service,
-        timeline: prefilledScope.scope || prev.timeline,
-        message: prev.message || `Hi Tayyab, I'd like to discuss a project for a ${prefilledScope.type || 'web application'}.`,
-      }))
-    }
-  }, [prefilledScope])
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -89,14 +77,11 @@ export default function Contact({ prefilledScope }) {
       <div className="flex flex-col gap-12">
         {/* Section Header */}
         <div>
-          <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-2">
-            07 // Start a Conversation
-          </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Let's Discuss Your Project
+            Let's Work Together
           </h2>
           <p className="text-sm text-slate-400 mt-2 max-w-xl">
-            Have a website to build, a store to launch, an automation to set up, or need reliable maintenance? Fill out the brief below or contact me directly.
+            Have a project in mind, an existing site to enhance, or an automation to set up? Send a message below or reach out directly on WhatsApp.
           </p>
         </div>
 

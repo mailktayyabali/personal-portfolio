@@ -78,16 +78,15 @@ export default function Projects() {
         {/* Compact Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/[0.08] pb-4">
           <div>
-            <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-1">
-              02 // Featured Projects
-            </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Selected Engineering & Client Work
+              Featured Projects
             </h2>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              Real-time applications, collaborative platforms, and production client work.
+            </p>
           </div>
-          <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
-            <span>4 Documented Case Studies</span>
+          <div className="text-xs font-mono text-slate-400">
+            Selected Work & Source Code
           </div>
         </div>
 
@@ -115,9 +114,8 @@ export default function Projects() {
                     </span>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
-                    <span className={`w-1.5 h-1.5 rounded-full ${project.statusDot}`} />
-                    <span>{project.sourceTag}</span>
+                  <span className="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
+                    {project.sourceTag}
                   </span>
                 </div>
 

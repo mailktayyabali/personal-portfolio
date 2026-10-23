@@ -53,9 +53,6 @@ export default function Process() {
       <div className="flex flex-col gap-12">
         {/* Section Header */}
         <div>
-          <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-2">
-            04 // Client Workflow
-          </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
             How We Work Together
           </h2>
@@ -80,10 +77,10 @@ export default function Process() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-blue-600/10 border border-blue-500/20 text-blue-400">
-                      STEP {item.step}
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-slate-400">
+                      Phase {item.step}
                     </span>
-                    <Icon className="w-5 h-5 text-slate-400" />
+                    <Icon className="w-4 h-4 text-slate-400" />
                   </div>
 
                   <h3 className="text-base font-bold text-white mb-2 leading-snug">
@@ -97,8 +94,8 @@ export default function Process() {
 
                 <ul className="pt-3 border-t border-white/[0.05] space-y-1.5 text-[11px] text-slate-300 list-none p-0 m-0">
                   {item.points.map((p, i) => (
-                    <li key={i} className="flex items-center gap-1.5">
-                      <span className="w-1 h-1 rounded-full bg-blue-400 shrink-0" />
+                    <li key={i} className="flex items-start gap-1.5">
+                      <span className="text-blue-400 font-mono text-[10px] mt-0.5">-</span>
                       <span>{p}</span>
                     </li>
                   ))}

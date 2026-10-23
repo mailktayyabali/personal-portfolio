@@ -2,22 +2,19 @@ import React, { useState, useEffect } from 'react'
 import Hero from './components/Hero'
 import Services from './components/Services'
 import Projects from './components/Projects'
-import LeadEstimator from './components/LeadEstimator'
-import Process from './components/Process'
 import About from './components/About'
 import Skills from './components/Skills'
+import Process from './components/Process'
 import Contact from './components/Contact'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
-import FloatingLeadBar from './components/FloatingLeadBar'
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home')
-  const [prefilledScope, setPrefilledScope] = useState(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'services', 'projects', 'estimator', 'process', 'about', 'skills', 'contact']
+      const sections = ['home', 'services', 'projects', 'about', 'skills', 'process', 'contact']
       const scrollPos = window.scrollY + 220
 
       for (const section of sections) {
@@ -45,14 +42,12 @@ export default function App() {
         <Hero />
         <Services />
         <Projects />
-        <LeadEstimator onScopeSelect={setPrefilledScope} />
-        <Process />
         <About />
         <Skills />
-        <Contact prefilledScope={prefilledScope} />
+        <Process />
+        <Contact />
       </main>
       <Footer />
-      <FloatingLeadBar />
     </div>
   )
 }

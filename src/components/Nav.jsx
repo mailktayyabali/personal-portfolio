@@ -6,8 +6,9 @@ const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'services', label: 'Services' },
   { id: 'projects', label: 'Projects' },
-  { id: 'estimator', label: 'Estimator' },
   { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'process', label: 'Process' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -102,10 +103,10 @@ export default function Nav({ activeSection, onSectionChange }) {
               </a>
 
               <button
-                onClick={() => handleNavClick('estimator')}
+                onClick={() => handleNavClick('contact')}
                 className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-sm cursor-pointer"
               >
-                Get Quote
+                Contact Me
               </button>
             </div>
           </nav>
@@ -113,10 +114,10 @@ export default function Nav({ activeSection, onSectionChange }) {
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-2">
             <button
-              onClick={() => handleNavClick('estimator')}
+              onClick={() => handleNavClick('contact')}
               className="px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-blue-600 cursor-pointer"
             >
-              Get Quote
+              Contact
             </button>
             <button
               onClick={() => setMobileMenuOpen(true)}

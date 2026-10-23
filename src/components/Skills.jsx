@@ -78,16 +78,15 @@ export default function Skills() {
         {/* Compact Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/[0.08] pb-4">
           <div>
-            <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-1">
-              06 // Technical Capabilities
-            </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Skills & Engineering Toolkit
+              Technical Skills & Stack
             </h2>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              Core technologies and architectural tools used in production applications.
+            </p>
           </div>
-          <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>MERN Stack · Real-Time · Web Solutions</span>
+          <div className="text-xs font-mono text-slate-400">
+            Full-Stack MERN
           </div>
         </div>
 
@@ -123,10 +122,9 @@ export default function Skills() {
                     {pillar.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono text-slate-300 bg-white/[0.03] border border-white/[0.06] hover:border-white/20 transition-colors"
+                        className="px-2 py-0.5 rounded text-[11px] font-mono text-slate-300 bg-white/[0.03] border border-white/[0.06] hover:border-white/20 transition-colors"
                       >
-                        <span className="w-1 h-1 rounded-full bg-blue-400" />
-                        <span>{skill}</span>
+                        {skill}
                       </span>
                     ))}
                   </div>
@@ -148,7 +146,7 @@ export default function Skills() {
           <div className="flex items-center gap-2.5 text-slate-300">
             <GraduationCap className="w-4 h-4 text-blue-400 shrink-0" />
             <span>
-              <strong className="text-white">BS Computer Science</strong> (CGPA 3.27 / 4.0) — Riphah International University
+              <strong className="text-white">BS Computer Science</strong> (CGPA 3.27 / 4.0) - Riphah International University
             </span>
           </div>
 
