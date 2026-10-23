@@ -1,341 +1,156 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Float, Stars, MeshDistortMaterial } from '@react-three/drei'
-import * as THREE from 'three'
+import React, { useState, useEffect } from 'react'
+import { ArrowRight, MessageSquare, CheckCircle2 } from 'lucide-react'
 
-// Mouse and scroll tracker to animate the 3D scene
-function SceneContent({ mouse }) {
-  const groupRef = useRef()
-  const { viewport } = useThree()
-
-  const isSmallScreen = viewport.width < 5.5
-  const scaleFactor = isSmallScreen ? 0.65 : 1.0
-
-  useFrame((state) => {
-    if (!groupRef.current) return
-    
-    // Get current scroll position
-    const scrollY = window.scrollY
-    
-    // Interpolate tilt of the entire 3D container based on mouse pointer
-    const targetX = (mouse.x * Math.PI) / (isSmallScreen ? 14 : 8)
-    const targetY = (mouse.y * Math.PI) / (isSmallScreen ? 14 : 8)
-    groupRef.current.rotation.y += (targetX - groupRef.current.rotation.y) * 0.05
-    groupRef.current.rotation.x += (targetY - groupRef.current.rotation.x) * 0.05
-    
-    // Scroll animation: push shapes back and rotate them as you scroll down
-    groupRef.current.position.z = -scrollY * 0.005
-    groupRef.current.rotation.z = scrollY * 0.0015
-    groupRef.current.position.y = -scrollY * 0.001
-  })
-
-  return (
-    <group ref={groupRef} scale={[scaleFactor, scaleFactor, scaleFactor]}>
-      {/* Top Left Floating Cube */}
-      <Float speed={2} floatIntensity={1.5} rotationIntensity={1} position={[-2.2, 1.4, 0]}>
-        <FloatingMesh shape="cube" color="#00f5ff" size={0.5} />
-      </Float>
-
-      {/* Top Right Floating Octahedron */}
-      <Float speed={1.8} floatIntensity={2} rotationIntensity={1.5} position={[2.4, 1.2, -0.5]}>
-        <FloatingMesh shape="octahedron" color="#a855f7" size={0.6} />
-      </Float>
-
-      {/* Bottom Left Floating Ring (Torus) */}
-      <Float speed={1.5} floatIntensity={1.2} rotationIntensity={1} position={[-2.5, -1.2, 0.5]}>
-        <FloatingMesh shape="ring" color="#7c3aed" size={0.7} />
-      </Float>
-
-      {/* Bottom Right Floating Cube */}
-      <Float speed={2.2} floatIntensity={1.8} rotationIntensity={1.2} position={[2.2, -1.3, 0]}>
-        <FloatingMesh shape="cube" color="#00f5ff" size={0.35} />
-      </Float>
-
-      {/* Floating Dots / Particle Nodes */}
-      <Float speed={1} floatIntensity={0.5} position={[-1.2, 0.3, 0.2]}>
-        <FloatingMesh shape="dot" color="#00f5ff" size={0.08} />
-      </Float>
-      <Float speed={1.2} floatIntensity={0.6} position={[1.3, -0.2, 0.1]}>
-        <FloatingMesh shape="dot" color="#a855f7" size={0.08} />
-      </Float>
-    </group>
-  )
-}
-
-function FloatingMesh({ shape, color, size }) {
-  const meshRef = useRef()
-  const [hovered, setHovered] = useState(false)
-
-  useFrame((state, delta) => {
-    if (!meshRef.current) return
-    
-    // Read scroll to adjust rotation speed
-    const scrollY = window.scrollY
-    const speedMultiplier = 1 + scrollY * 0.005
-
-    // Gentle continuous rotation (accelerated by scrolling)
-    meshRef.current.rotation.x += delta * 0.2 * speedMultiplier
-    meshRef.current.rotation.y += delta * 0.3 * speedMultiplier
-
-    // Scale up slightly on hover
-    const targetScale = hovered ? 1.3 : 1.0
-    meshRef.current.scale.setScalar(
-      THREE.MathUtils.lerp(meshRef.current.scale.x, targetScale, 0.1)
-    )
-  })
-
-  const getGeometry = () => {
-    switch (shape) {
-      case 'cube':
-        return <boxGeometry args={[size, size, size]} />
-      case 'octahedron':
-        return <octahedronGeometry args={[size]} />
-      case 'ring':
-        return <torusGeometry args={[size, size * 0.12, 16, 100]} />
-      case 'dot':
-      default:
-        return <sphereGeometry args={[size, 16, 16]} />
-    }
-  }
-
-  return (
-    <mesh
-      ref={meshRef}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-    >
-      {getGeometry()}
-      {shape === 'ring' ? (
-        <MeshDistortMaterial
-          color={color}
-          distort={0.2}
-          speed={3}
-          roughness={0.1}
-          metalness={0.9}
-        />
-      ) : (
-        <meshPhysicalMaterial
-          color={color}
-          roughness={0.1}
-          metalness={0.8}
-          clearcoat={1.0}
-          clearcoatRoughness={0.1}
-          emissive={hovered ? color : '#000000'}
-          emissiveIntensity={hovered ? 0.6 : 0}
-        />
-      )}
-    </mesh>
-  )
-}
-
-function Typewriter({ words, speed = 80, delay = 2000 }) {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const [currentText, setCurrentText] = useState('')
-  const [isDeleting, setIsDeleting] = useState(false)
-
-  useEffect(() => {
-    let timer
-    const fullText = words[currentWordIndex]
-
-    if (isDeleting) {
-      timer = setTimeout(() => {
-        setCurrentText(fullText.substring(0, currentText.length - 1))
-      }, speed / 2)
-    } else {
-      timer = setTimeout(() => {
-        setCurrentText(fullText.substring(0, currentText.length + 1))
-      }, speed)
-    }
-
-    if (!isDeleting && currentText === fullText) {
-      timer = setTimeout(() => setIsDeleting(true), delay)
-    } else if (isDeleting && currentText === '') {
-      setIsDeleting(false)
-      setCurrentWordIndex((prev) => (prev + 1) % words.length)
-    }
-
-    return () => clearTimeout(timer)
-  }, [currentText, isDeleting, currentWordIndex, words, speed, delay])
-
-  return (
-    <span className="animate-blink pr-1" style={{ color: 'var(--primary)', fontWeight: 'bold' }}>
-      {currentText}
-    </span>
-  )
-}
+import chatgptImage from '../assets/ChatGPT Image Jul 24, 2026, 05_01_56 PM.png'
 
 export default function Hero() {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 })
   const [mounted, setMounted] = useState(false)
-  const containerRef = useRef(null)
 
   useEffect(() => {
-    setTimeout(() => setMounted(true), 100)
+    setMounted(true)
   }, [])
-
-  const handleMouseMove = (e) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    setMouse({
-      x: (e.clientX - rect.left) / rect.width - 0.5,
-      y: -(e.clientY - rect.top) / rect.height + 0.5, // inverted for 3D coordinates
-    })
-  }
 
   return (
     <section
       id="home"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden py-16 sm:py-24 w-full max-w-full"
+      className="relative min-h-[92dvh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 w-full max-w-6xl mx-auto"
       style={{ zIndex: 1 }}
     >
-      {/* 3D Canvas Background replacing 2D SVGs */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-        <Canvas camera={{ position: [0, 0, 4.5], fov: 60 }} eventSource={containerRef}>
-          <ambientLight intensity={0.6} />
-          <pointLight position={[10, 10, 10]} intensity={1.5} color="#00f5ff" />
-          <pointLight position={[-10, -10, -10]} intensity={1} color="#a855f7" />
-          <directionalLight position={[0, 5, 0]} intensity={0.5} />
-          
-          <SceneContent mouse={mouse} />
-          <Stars radius={100} depth={50} count={600} factor={4} saturation={0.5} fade speed={1} />
-        </Canvas>
-      </div>
-
-      {/* Main content */}
-      <div className="relative text-center px-4 sm:px-8 py-12 sm:py-20 max-w-5xl mx-auto w-full" style={{ zIndex: 2 }}>
+      <div className="w-full flex flex-col items-center text-center">
+        {/* Personal Intro Badge with avatar */}
         <div
-          className="text-xs sm:text-xs tracking-widest mb-3 sm:mb-6"
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all duration-700 mb-6"
           style={{
-            color: 'var(--primary)',
+            background: 'rgba(255, 255, 255, 0.03)',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            color: '#e2e8f0',
             opacity: mounted ? 1 : 0,
-            transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'all 0.8s ease 0.1s',
+            transform: mounted ? 'translateY(0)' : 'translateY(16px)',
           }}
         >
-          {'// MERN STACK DEVELOPER'}
+          <div className="w-5 h-5 rounded-full overflow-hidden border border-white/20 shrink-0">
+            <img src={chatgptImage} alt="Tayyab Ali" className="w-full h-full object-cover object-top" />
+          </div>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <span className="text-[11px] sm:text-xs tracking-wide">
+            Tayyab Ali · Available for Freelance Projects & Contracts
+          </span>
         </div>
 
+        {/* Primary Headline */}
         <h1
-          className="font-bold leading-none mb-5 sm:mb-6"
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-4 sm:mb-6 max-w-4xl"
           style={{
-            fontSize: 'clamp(2.1rem, 9.5vw, 7.5rem)',
             opacity: mounted ? 1 : 0,
-            transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease 0.2s',
-            letterSpacing: '-0.02em',
+            transform: mounted ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s',
+            letterSpacing: '-0.03em',
           }}
         >
-          <span style={{
-            background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.6) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}>
-            TAYYAB
+          I build custom web apps, online stores & automations that{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-sky-300">
+            grow your business
           </span>
-          <br />
-          <span style={{
-            background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            textShadow: 'none',
-            filter: 'drop-shadow(0 0 30px rgba(0,245,255,0.3))',
-          }}>
-            ALI
-          </span>
+          .
         </h1>
 
-        <div
-          className="text-xs sm:text-base md:text-lg font-bold tracking-wide mb-6 min-h-[4.5rem] sm:min-h-[3.5rem] md:min-h-[2.5rem] flex items-center justify-center px-2"
-          style={{
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'all 0.8s ease 0.3s',
-            fontFamily: "'JetBrains Mono', monospace",
-          }}
-        >
-          <Typewriter
-            words={[
-              "Building high-performance full-stack web applications.",
-              "Designing clean database architectures with MongoDB & MySQL.",
-              "Developing responsive frontends using React & Tailwind CSS.",
-              "Writing clean, modular, and maintainable code."
-            ]}
-          />
-        </div>
-
+        {/* Subhead / Value Proposition */}
         <p
-          className="text-xs sm:text-sm leading-relaxed mb-8 sm:mb-10 max-w-lg mx-auto px-2"
+          className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed mb-8 sm:mb-10 px-2 font-normal"
           style={{
-            color: 'rgba(232, 232, 240, 0.85)',
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'all 0.8s ease 0.4s',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
           }}
         >
-          Detail-oriented MERN Stack Developer passionate about crafting highly responsive, scalable web applications.
-          Bridging clean frontend aesthetics with robust, secure backend architectures.
+          I'm a Full-Stack MERN Developer who works directly with founders, businesses, and creators.
+          From custom React platforms and Shopify/WordPress stores to AI workflow automations—delivered on time with zero agency overhead.
         </p>
 
+        {/* Action CTAs: Lead Generation Focus */}
         <div
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-xs sm:max-w-none mx-auto"
+          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto mb-12 sm:mb-16"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'all 0.8s ease 0.6s',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
           }}
         >
-          <GlowButton
-            primary
+          <button
+            onClick={() => document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' })}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 cursor-pointer"
+          >
+            <span>Get a Free Project Estimate</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+
+          <button
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-medium text-slate-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
           >
-            VIEW WORK
-          </GlowButton>
-          <GlowButton
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            <span>View Selected Work</span>
+          </button>
+
+          <a
+            href="https://wa.me/923254269162"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-medium text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-500/20 transition-all duration-200"
           >
-            GET IN TOUCH
-          </GlowButton>
+            <MessageSquare className="w-4 h-4" />
+            <span>Chat on WhatsApp</span>
+          </a>
         </div>
 
-        {/* Scroll indicator */}
+        {/* The Direct Freelancer Advantage over Agencies */}
         <div
-          className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
+          className="w-full grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl pt-8 border-t border-white/[0.08]"
           style={{
-            opacity: mounted ? 0.4 : 0,
-            transition: 'opacity 1s ease 1.2s',
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
           }}
         >
-          <div className="text-xs tracking-widest" style={{ color: 'var(--muted-foreground)' }}>SCROLL</div>
-          <div className="w-px h-12 animate-pulse-glow" style={{ background: 'linear-gradient(to bottom, var(--primary), transparent)' }} />
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-left">
+            <div className="flex items-center gap-1.5 text-xs font-mono text-blue-400 font-semibold mb-1">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>DIRECT ACCESS</span>
+            </div>
+            <div className="text-sm font-bold text-white">1-on-1 Communication</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">No agency middlemen or delays</div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-left">
+            <div className="flex items-center gap-1.5 text-xs font-mono text-blue-400 font-semibold mb-1">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>FAST SPRINTS</span>
+            </div>
+            <div className="text-sm font-bold text-white">Rapid MVP Delivery</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Working software in weeks</div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-left">
+            <div className="flex items-center gap-1.5 text-xs font-mono text-blue-400 font-semibold mb-1">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>100% YOURS</span>
+            </div>
+            <div className="text-sm font-bold text-white">Full Code Ownership</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Clean repo & zero lock-in</div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-left">
+            <div className="flex items-center gap-1.5 text-xs font-mono text-blue-400 font-semibold mb-1">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>END-TO-END</span>
+            </div>
+            <div className="text-sm font-bold text-white">Design to Cloud</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Deployment & ongoing handling</div>
+          </div>
         </div>
       </div>
     </section>
-  )
-}
-
-function GlowButton({ children, primary, onClick }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="w-full sm:w-auto px-6 sm:px-8 py-3 text-xs tracking-widest font-bold transition-all duration-300 cursor-pointer border"
-      style={{
-        background: primary
-          ? hovered ? 'var(--primary)' : 'transparent'
-          : 'transparent',
-        color: primary
-          ? hovered ? 'var(--primary-foreground)' : 'var(--primary)'
-          : hovered ? 'var(--foreground)' : 'var(--muted-foreground)',
-        borderColor: primary ? 'var(--primary)' : 'rgba(255,255,255,0.15)',
-        boxShadow: primary && hovered ? '0 0 30px rgba(0,245,255,0.4)' : 'none',
-        borderRadius: '2px',
-      }}
-    >
-      {children}
-    </button>
   )
 }

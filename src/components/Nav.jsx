@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { Menu, X, Github, Linkedin, Mail } from 'lucide-react'
 
-const links = [
-  { id: 'home', number: '01' },
-  { id: 'about', number: '02' },
-  { id: 'projects', number: '03' },
-  { id: 'skills', number: '04' },
-  { id: 'contact', number: '05' },
+
+const navLinks = [
+  { id: 'home', label: 'Home' },
+  { id: 'services', label: 'Services' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'estimator', label: 'Estimator' },
+  { id: 'about', label: 'About' },
+  { id: 'contact', label: 'Contact' },
 ]
+
 
 export default function Nav({ activeSection, onSectionChange }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', handler)
-    return () => window.removeEventListener('scroll', handler)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -30,152 +35,179 @@ export default function Nav({ activeSection, onSectionChange }) {
     }
   }, [mobileMenuOpen])
 
-  const handleClick = (linkId) => {
-    onSectionChange(linkId)
+  const handleNavClick = (id) => {
+    onSectionChange(id)
     setMobileMenuOpen(false)
-    const el = document.getElementById(linkId)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40">
-        <nav
-          className="flex items-center justify-between px-4 sm:px-8 py-4 transition-all duration-500"
-          style={{
-            background: scrolled ? 'rgba(5,5,8,0.92)' : 'transparent',
-            backdropFilter: scrolled ? 'blur(20px)' : 'none',
-            borderBottom: scrolled ? '1px solid rgba(0,245,255,0.1)' : '1px solid transparent',
-          }}
-        >
-          <div className="text-sm font-bold tracking-widest font-mono" style={{ color: 'var(--primary)' }}>
-            {'<TAYYAB.DEV />'}
-          </div>
-
-          {/* Desktop links */}
-          <ul className="hidden md:flex gap-8 list-none m-0 p-0">
-            {links.map(({ id }) => (
-              <li key={id}>
-                <button
-                  onClick={() => handleClick(id)}
-                  className="text-xs tracking-widest uppercase transition-all duration-300 bg-transparent border-none cursor-pointer font-mono"
-                  style={{
-                    color: activeSection === id ? 'var(--primary)' : 'var(--muted-foreground)',
-                    textShadow: activeSection === id ? '0 0 12px var(--primary)' : 'none',
-                  }}
-                >
-                  {id}
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          {/* Mobile Hamburger Toggle Button */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+            ? 'bg-[#090a11]/85 backdrop-blur-md border-b border-white/[0.08] py-3.5 shadow-lg shadow-black/20'
+            : 'bg-transparent py-5'
+          }`}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Logo / Name */}
           <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden flex items-center justify-center p-2.5 text-white bg-white/5 border border-white/10 rounded-lg cursor-pointer transition-all duration-300 hover:border-cyan-400"
-            aria-label="Open menu"
+            onClick={() => handleNavClick('home')}
+            className="flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 text-left"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <span className="w-8 h-8 rounded-lg bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-mono font-bold text-sm group-hover:border-blue-400 transition-colors">
+              TA
+            </span>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-white tracking-tight">
+                Tayyab Ali
+              </span>
+              <span className="text-[10px] font-mono text-slate-400">
+                Full-Stack MERN
+              </span>
+            </div>
           </button>
-        </nav>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            <ul className="flex items-center gap-6 list-none p-0 m-0">
+              {navLinks.map(({ id, label }) => {
+                const isActive = activeSection === id
+                return (
+                  <li key={id}>
+                    <button
+                      onClick={() => handleNavClick(id)}
+                      className={`text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer bg-transparent border-none p-0 ${isActive ? 'text-blue-400 font-semibold' : 'text-slate-400 hover:text-white'
+                        }`}
+                    >
+                      {label}
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+
+            <div className="flex items-center gap-3 pl-4 border-l border-white/[0.08]">
+              <a
+                href="https://github.com/mailktayyabali"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
+                title="GitHub"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+
+              <button
+                onClick={() => handleNavClick('estimator')}
+                className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-sm cursor-pointer"
+              >
+                Get Quote
+              </button>
+            </div>
+          </nav>
+
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={() => handleNavClick('estimator')}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-blue-600 cursor-pointer"
+            >
+              Get Quote
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="p-2 rounded-lg text-slate-300 hover:text-white bg-white/[0.04] border border-white/[0.08] cursor-pointer"
+              aria-label="Open Navigation Menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
       </header>
 
-      {/* Right Side Drawer (Does NOT cover whole screen) */}
-      {/* Backdrop overlay */}
+      {/* Mobile Drawer Backdrop */}
       {mobileMenuOpen && (
         <div
           onClick={() => setMobileMenuOpen(false)}
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden transition-opacity duration-300"
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs md:hidden"
         />
       )}
 
-      {/* Side Panel Drawer */}
+      {/* Mobile Drawer Panel */}
       <div
-        className="fixed top-0 right-0 bottom-0 z-50 md:hidden w-[85vw] max-w-xs h-[100dvh] flex flex-col justify-between p-5 sm:p-6 shadow-2xl border-l overflow-y-auto"
-        style={{
-          background: 'rgba(10, 10, 16, 0.98)',
-          backdropFilter: 'blur(25px)',
-          borderColor: 'rgba(0, 245, 255, 0.15)',
-          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
-          visibility: mobileMenuOpen ? 'visible' : 'hidden',
-          pointerEvents: mobileMenuOpen ? 'auto' : 'none',
-          transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        className={`fixed top-0 right-0 bottom-0 z-50 md:hidden w-[80vw] max-w-xs bg-[#0c0e18] border-l border-white/[0.08] flex flex-col justify-between p-6 transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between w-full pb-4 border-b border-white/10 shrink-0">
-          <div className="text-xs font-bold tracking-widest font-mono" style={{ color: 'var(--primary)' }}>
-            {'<MENU />'}
+        <div>
+          <div className="flex items-center justify-between pb-5 border-b border-white/[0.08]">
+            <div className="flex items-center gap-2">
+              <span className="w-7 h-7 rounded-md bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-mono font-bold text-xs">
+                TA
+              </span>
+              <span className="text-sm font-bold text-white">Tayyab Ali</span>
+            </div>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-white bg-white/[0.04] cursor-pointer"
+              aria-label="Close Navigation Menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="p-2.5 min-w-[40px] min-h-[40px] flex items-center justify-center text-white bg-white/5 border border-white/15 rounded-lg cursor-pointer transition-all duration-300 hover:border-cyan-400"
-            aria-label="Close menu"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Drawer Links */}
-        <div className="my-auto flex flex-col gap-3 py-6 shrink-0">
-          {links.map(({ id, number }) => {
-            const isActive = activeSection === id
-            return (
-              <button
-                key={id}
-                onClick={() => handleClick(id)}
-                className="group flex items-center justify-between text-left py-3 px-4 rounded-lg border transition-all duration-300 bg-transparent cursor-pointer font-mono min-h-[46px]"
-                style={{
-                  borderColor: isActive ? 'var(--primary)' : 'rgba(255, 255, 255, 0.08)',
-                  background: isActive ? 'rgba(0, 245, 255, 0.08)' : 'rgba(255, 255, 255, 0.02)',
-                }}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-bold font-mono tracking-widest text-cyan-400 opacity-60">
-                    {number}
-                  </span>
-                  <span
-                    className="text-sm sm:text-base font-bold tracking-wider uppercase"
-                    style={{
-                      color: isActive ? 'var(--primary)' : '#ffffff',
-                    }}
-                  >
-                    {id}
-                  </span>
-                </div>
-
-                <span
-                  className="text-sm transition-transform duration-300 group-hover:translate-x-1"
-                  style={{ color: isActive ? 'var(--primary)' : 'var(--muted-foreground)' }}
+          <nav className="mt-8 flex flex-col gap-2">
+            {navLinks.map(({ id, label }) => {
+              const isActive = activeSection === id
+              return (
+                <button
+                  key={id}
+                  onClick={() => handleNavClick(id)}
+                  className={`text-left px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer border ${isActive
+                      ? 'bg-blue-600/10 border-blue-500/30 text-blue-400'
+                      : 'border-transparent text-slate-300 hover:bg-white/[0.04]'
+                    }`}
                 >
-                  →
-                </span>
-              </button>
-            )
-          })}
+                  {label}
+                </button>
+              )
+            })}
+          </nav>
         </div>
 
-        {/* Drawer Footer */}
-        <div className="pt-4 border-t border-white/10 flex flex-col gap-2 shrink-0">
-          <div className="text-[10px] font-mono text-gray-400">
-            TAYYAB ALI — MERN DEV
-          </div>
-          <a
-            href="mailto:maliktayyabali789@gmail.com"
-            className="text-[11px] font-mono text-cyan-400 hover:underline truncate"
-          >
+        <div className="pt-6 border-t border-white/[0.08] flex flex-col gap-3">
+          <div className="text-xs text-slate-400 font-mono">
             maliktayyabali789@gmail.com
-          </a>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/mailktayyabali"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-slate-400 hover:text-white bg-white/[0.04] border border-white/[0.08]"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+            <a
+              href="http://www.linkedin.com/in/tayyab-ali89"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-slate-400 hover:text-white bg-white/[0.04] border border-white/[0.08]"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a
+              href="mailto:maliktayyabali789@gmail.com"
+              className="p-2 rounded-lg text-slate-400 hover:text-white bg-white/[0.04] border border-white/[0.08]"
+            >
+              <Mail className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </>
   )
 }
-
-

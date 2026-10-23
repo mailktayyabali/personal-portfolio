@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import chatgptImage from '../assets/ChatGPT Image Jul 24, 2026, 05_01_56 PM.png'
+import { GraduationCap, Award, MapPin, CheckCircle2 } from 'lucide-react'
+
 
 export default function About() {
   const ref = useRef(null)
@@ -8,157 +10,148 @@ export default function About() {
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) setVisible(true)
-    }, { threshold: 0.2 })
+    }, { threshold: 0.15 })
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section id="about" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 overflow-hidden w-full max-w-full" style={{ zIndex: 1 }}>
-      <div className="max-w-6xl mx-auto">
-        <SectionLabel>{'// 01 — ABOUT'}</SectionLabel>
+    <section id="about" ref={ref} className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 w-full max-w-6xl mx-auto" style={{ zIndex: 1 }}>
+      <div className="flex flex-col gap-12">
+        {/* Section Header */}
+        <div>
+          <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-2">
+            05 // About Me
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            Background & Engineering Philosophy
+          </h2>
+        </div>
 
-        <div className="grid gap-12 md:gap-16 mt-8 sm:mt-12 grid-cols-1 md:grid-cols-2">
-          {/* Left: Portrait with 3D frame */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Left: Professional Photo & Key Facts */}
           <div
-            className="relative max-w-sm mx-auto md:max-w-none w-full"
+            className="lg:col-span-5 flex flex-col gap-4"
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'all 0.9s ease 0.1s',
+              transform: visible ? 'translateY(0)' : 'translateY(24px)',
+              transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
-            <TiltCard>
-              <div className="relative overflow-hidden" style={{ aspectRatio: '3/4', borderRadius: '2px' }}>
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#0f111d] shadow-2xl">
+              <div className="aspect-[4/5] relative">
                 <img
                   src={chatgptImage}
-                  alt="Tayyab Ali — MERN Stack & Mobile Developer"
-                  className="w-full h-full object-cover"
-                  style={{ filter: 'grayscale(10%) contrast(1.05)' }}
+                  alt="Tayyab Ali — Full-Stack Developer"
+                  className="w-full h-full object-cover object-top"
                 />
-                <div className="absolute inset-0" style={{
-                  background: 'linear-gradient(180deg, transparent 50%, rgba(5,5,8,0.8) 100%)',
-                }} />
-                {/* Corner brackets */}
-                <CornerBrackets color="var(--primary)" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#090a11] via-transparent to-transparent opacity-80" />
               </div>
-            </TiltCard>
 
-            {/* Stat badge */}
-            <div className="absolute -bottom-4 right-2 sm:-bottom-6 sm:right-0 md:-right-4 p-3 sm:p-5 border"
-              style={{
-                background: 'var(--card)',
-                borderColor: 'rgba(0,245,255,0.15)',
-                borderRadius: '2px',
-                backdropFilter: 'blur(10px)',
-              }}>
-              <div className="text-xl sm:text-3xl font-bold" style={{ color: 'var(--primary)' }}>3.27</div>
-              <div className="text-[10px] sm:text-xs tracking-widest mt-0.5 sm:mt-1" style={{ color: 'var(--muted-foreground)' }}>CGPA</div>
+              <div className="p-5 flex flex-col gap-2 bg-[#0d0f1a] border-t border-white/[0.06]">
+                <div className="flex items-center justify-between text-xs text-slate-300">
+                  <span className="flex items-center gap-1.5 font-medium">
+                    <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                    Lahore, Pakistan
+                  </span>
+                  <span className="text-emerald-400 font-mono text-[11px] bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    Open to Relocation / Remote
+                  </span>
+                </div>
+                <div className="text-xs text-slate-400 font-mono pt-1">
+                  maliktayyabali789@gmail.com
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right: Bio */}
+          {/* Right: Narrative & Education */}
           <div
-            className="flex flex-col justify-center gap-4 sm:gap-6 mt-4 md:mt-0"
+            className="lg:col-span-7 flex flex-col gap-6"
             style={{
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'all 0.9s ease 0.3s',
+              transform: visible ? 'translateY(0)' : 'translateY(24px)',
+              transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
             }}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight" style={{ letterSpacing: '-0.02em' }}>
-              <span style={{ color: 'var(--foreground)' }}>Building the </span>
-              <span style={{
-                background: 'linear-gradient(90deg, var(--primary), var(--accent))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}>
-                impossible
-              </span>
-              <br />
-              <span style={{ color: 'var(--foreground)' }}>in the browser.</span>
-            </h2>
+            <div className="text-slate-300 space-y-4 text-sm sm:text-base leading-relaxed">
+              <p>
+                I am a detail-oriented <strong className="text-white font-semibold">MERN Stack Developer</strong> with hands-on experience designing and developing scalable full-stack web applications using MongoDB, Express.js, React.js, and Node.js.
+              </p>
+              <p>
+                My background is anchored in solid computer science foundations from Riphah International University. I focus on writing clean, modular JavaScript and C++, structuring RESTful API architectures, designing normalized database schemas, and securing user workflows with JWT authentication.
+              </p>
+              <p>
+                I enjoy taking projects through the complete software lifecycle—from initial data modeling and API testing with Postman to crafting responsive frontend interfaces with React and deploying production builds on Vercel and Render.
+              </p>
+            </div>
 
-            <p className="text-xs sm:text-sm leading-loose" style={{ color: 'rgba(232, 232, 240, 0.85)' }}>
-              I am a detail-oriented MERN Stack Developer focused on building high-performance, scalable web
-              applications. With hands-on experience across the entire software development lifecycle, I specialize
-              in creating robust backend services using Node.js & Express.js, designing efficient database schemas
-              in MongoDB & MySQL, and crafting clean, responsive user interfaces with React.js & Tailwind CSS.
-            </p>
-
-            <p className="text-xs sm:text-sm leading-loose" style={{ color: 'rgba(232, 232, 240, 0.85)' }}>
-              Beyond the MERN stack, I have a solid foundation in computer science principles, with practical experience
-              in OOP using C++, API testing with Postman, version control via Git, and seamless deployments on Vercel & Render.
-              I thrive on solving complex logic puzzles and translating requirements into production-ready software.
-            </p>
-
-            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 mt-2">
-              {[
-                { label: 'LOCATION', value: 'Lahore, PK' },
-                { label: 'FOCUS', value: 'MERN Stack' },
-                { label: 'EDUCATION', value: 'BS Comp Sci' },
-                { label: 'STATUS', value: 'Available' },
-              ].map(item => (
-                <div key={item.label} className="p-2.5 sm:p-3 border" style={{
-                  borderColor: 'var(--border)',
-                  borderRadius: '2px',
-                  background: 'var(--muted)',
-                }}>
-                  <div className="text-[9px] sm:text-xs tracking-widest mb-0.5 sm:mb-1" style={{ color: 'var(--muted-foreground)' }}>{item.label}</div>
-                  <div className="text-xs sm:text-sm font-bold truncate" style={{ color: 'var(--foreground)' }}>{item.value}</div>
+            {/* Education & Academic Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 text-blue-400 text-xs font-mono mb-1">
+                    <GraduationCap className="w-4 h-4" />
+                    <span>DEGREE</span>
+                  </div>
+                  <h3 className="text-sm font-semibold text-white">Bachelor of Computer Science</h3>
+                  <div className="text-xs text-slate-400 mt-1">Riphah International University</div>
                 </div>
-              ))}
+                <div className="mt-3 text-xs font-mono font-bold text-blue-300">
+                  CGPA: 3.27 / 4.0
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 text-blue-400 text-xs font-mono mb-1">
+                    <Award className="w-4 h-4" />
+                    <span>CERTIFICATIONS</span>
+                  </div>
+                  <h3 className="text-sm font-semibold text-white">Cisco Networking Academy</h3>
+                  <div className="text-xs text-slate-400 mt-1">JavaScript Essentials 1 & 2 · C++ Essentials 2</div>
+                </div>
+                <div className="mt-3 text-xs font-mono text-emerald-400">
+                  Verified Cisco Badges
+                </div>
+              </div>
+            </div>
+
+            {/* Core Competencies Checklist */}
+            <div className="p-4 rounded-xl bg-[#0e101a] border border-white/[0.08]">
+              <div className="text-xs font-mono font-medium text-slate-400 uppercase tracking-wider mb-3">
+                Key Development Strengths
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>Full-Stack MERN Architecture</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>REST API Design & Integration</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>JWT Auth & Role Authorization</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>MongoDB & MySQL Database Modeling</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>Responsive UI with Tailwind CSS</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span>Cloud Deployment (Vercel & Render)</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
-}
-
-function TiltCard({ children }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const ref = useRef(null)
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width - 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5
-    setTilt({ x: y * 12, y: -x * 12 })
-  }
-
-  return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-      style={{
-        transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: 'transform 0.15s ease-out',
-        transformStyle: 'preserve-3d',
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-function CornerBrackets({ color }) {
-  const style = { position: 'absolute', width: 20, height: 20, borderColor: color }
-  return (
-    <>
-      <div style={{ ...style, top: 12, left: 12, borderTop: `2px solid ${color}`, borderLeft: `2px solid ${color}` }} />
-      <div style={{ ...style, top: 12, right: 12, borderTop: `2px solid ${color}`, borderRight: `2px solid ${color}` }} />
-      <div style={{ ...style, bottom: 12, left: 12, borderBottom: `2px solid ${color}`, borderLeft: `2px solid ${color}` }} />
-      <div style={{ ...style, bottom: 12, right: 12, borderBottom: `2px solid ${color}`, borderRight: `2px solid ${color}` }} />
-    </>
-  )
-}
-
-export function SectionLabel({ children }) {
-  return (
-    <div className="text-xs tracking-widest font-bold" style={{ color: 'var(--primary)' }}>
-      {children}
-    </div>
   )
 }

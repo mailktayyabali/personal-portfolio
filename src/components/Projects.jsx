@@ -1,39 +1,62 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { SectionLabel } from './About'
+import { ArrowUpRight, Zap, FolderGit2 } from 'lucide-react'
 
 const projects = [
   {
     id: '01',
-    title: 'THE LOST LINK',
-    category: 'MERN Stack Developer',
-    description: 'A full-stack Lost & Found community platform using MongoDB, Express.js, React.js, and Node.js with JWT authentication.',
-    tags: ['MERN Stack', 'JWT Auth', 'REST APIs', 'Tailwind CSS'],
-    color: 'var(--primary)',
-    featured: true,
-    link: 'https://thelostlink.vercel.app',
-    github: 'https://github.com/mailktayyabali/Lost-and-found',
+    title: 'Real-Time Collaborative Editor',
+    subtitle: 'Multiplayer Document & Code Collaboration Suite',
+    category: 'Real-Time SaaS · CRDT Architecture',
+    highlight: 'Yjs CRDTs + Monaco Code Editor + AWS S3',
+    description:
+      'Multiplayer collaboration platform featuring conflict-free real-time document editing, embedded Monaco code editor, direct-to-cloud AWS S3 presigned asset pipeline, and Google OAuth 2.0 authentication.',
+    tech: ['React 19', 'Yjs CRDTs', 'Socket.io', 'Monaco Editor', 'AWS S3', 'Express 5', 'MongoDB'],
+    github: 'https://github.com/mailktayyabali/CollabrativeEditor',
+    live: null,
+    sourceTag: 'Local Project · D:\\CollabrativeEditor',
+    statusDot: 'bg-emerald-400',
   },
   {
     id: '02',
-    title: 'IMPACT EDGE AGENCY',
-    category: 'React / Frontend Developer',
-    description: 'Modern and responsive business website for a digital marketing agency featuring glassmorphism and performance optimization.',
-    tags: ['React.js', 'Tailwind CSS', 'Vite', 'SEO Optimization'],
-    color: 'var(--accent)',
-    featured: false,
-    link: 'https://www.impactedgemarketingagency.com/',
-    github: 'https://github.com/mailktayyabali/impact-edge-sloution-portfolio',
+    title: 'DevCollab',
+    subtitle: 'Developer Team Collaboration & Task Hub',
+    category: 'Full-Stack Team Productivity Platform',
+    highlight: 'Socket.io Chat + Task Boards + Zustand State',
+    description:
+      'Centralized developer workspace integrating real-time team chat channels, interactive Kanban-style task boards, dynamic team invitation workflows, and secure Express/MongoDB backend architecture.',
+    tech: ['React 19', 'Zustand', 'Socket.io', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
+    github: 'https://github.com/AlishbaAsif1266/DevCollab',
+    live: null,
+    sourceTag: 'Local Project · D:\\DevCollab',
+    statusDot: 'bg-emerald-400',
   },
   {
     id: '03',
-    title: 'GPA CALCULATOR',
-    category: 'React / Frontend Developer',
-    description: 'A GPA calculator web application enabling students to compute academic performance using grade-based and marks-based calculation methods.',
-    tags: ['React.js', 'Tailwind CSS', 'Glassmorphism', 'Vite'],
-    color: 'var(--secondary)',
-    featured: false,
-    link: 'https://gpa-calculator-riu.vercel.app',
-    github: 'https://github.com/mailktayyabali/GpaCalculator',
+    title: 'The Lost Link',
+    subtitle: 'Community Recovery Web Platform',
+    category: 'Full-Stack MERN Platform',
+    highlight: 'MongoDB Document Indexing + JWT Authentication',
+    description:
+      'Full-stack platform enabling community members to report, categorize, and recover lost belongings through a centralized digital registry with secure claim verification and RESTful APIs.',
+    tech: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'JWT Auth', 'Tailwind CSS', 'Vercel'],
+    github: 'https://github.com/mailktayyabali/Lost-and-found',
+    live: 'https://thelostlink.vercel.app',
+    sourceTag: 'Live Production',
+    statusDot: 'bg-blue-400',
+  },
+  {
+    id: '04',
+    title: 'Impact Edge Agency',
+    subtitle: 'Digital Marketing Agency Business Site',
+    category: 'Commercial Web Platform · Performance',
+    highlight: 'Sub-Second Load Time + Responsive UI + SEO',
+    description:
+      'High-performance commercial agency platform designed for high client conversion, featuring mobile-first responsive layouts, structured SEO metadata, and optimized Vite build delivery.',
+    tech: ['React.js', 'Tailwind CSS', 'Vite', 'JavaScript', 'SEO Architecture', 'Vercel'],
+    github: 'https://github.com/mailktayyabali/impact-edge-sloution-portfolio',
+    live: 'https://www.impactedgemarketingagency.com/',
+    sourceTag: 'Client Production',
+    statusDot: 'bg-blue-400',
   },
 ]
 
@@ -50,154 +73,123 @@ export default function Projects() {
   }, [])
 
   return (
-    <section id="projects" ref={ref} className="relative py-16 md:py-32 px-4 sm:px-8 overflow-hidden w-full max-w-full" style={{ zIndex: 1 }}>
-      <div className="max-w-6xl mx-auto">
-        <SectionLabel>{'// 02 — SELECTED WORK'}</SectionLabel>
-
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-4 mb-10 sm:mb-16 gap-4">
+    <section id="projects" ref={ref} className="relative py-14 sm:py-18 px-4 sm:px-6 lg:px-8 w-full max-w-6xl mx-auto" style={{ zIndex: 1 }}>
+      <div className="flex flex-col gap-6">
+        {/* Compact Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/[0.08] pb-4">
           <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold" style={{ letterSpacing: '-0.03em', color: 'var(--foreground)' }}>
-              Projects
+            <div className="text-xs font-mono font-semibold tracking-wider text-blue-400 uppercase mb-1">
+              02 // Featured Projects
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+              Selected Engineering & Client Work
             </h2>
-            <p className="text-xs sm:text-sm mt-2" style={{ color: 'var(--muted-foreground)' }}>
-              Showcase of recent full-stack & frontend web engineering applications.
-            </p>
           </div>
-          <span className="text-[10px] sm:text-xs tracking-widest font-mono" style={{ color: 'var(--muted-foreground)' }}>
-            {projects.length} CASE STUDIES
-          </span>
+          <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-blue-400" />
+            <span>4 Documented Case Studies</span>
+          </div>
         </div>
 
-        {/* Card Style Showcase Grid (No photos) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Compact 2x2 Grid (Non-bulky, high scannability) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {projects.map((project, index) => (
-            <ProjectCard
+            <div
               key={project.id}
-              project={project}
-              index={index}
-              visible={visible}
-            />
+              className="p-4 sm:p-5 rounded-xl bg-[#0f111d] border border-white/[0.08] hover:border-blue-500/35 transition-all duration-200 flex flex-col justify-between shadow-lg group hover:-translate-y-0.5"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(16px)',
+                transition: `all 0.35s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.06}s`,
+              }}
+            >
+              <div>
+                {/* Card Topline: ID & Tag */}
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-slate-300">
+                      {project.id}
+                    </span>
+                    <span className="text-[11px] font-mono text-blue-400 font-semibold uppercase tracking-wider">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
+                    <span className={`w-1.5 h-1.5 rounded-full ${project.statusDot}`} />
+                    <span>{project.sourceTag}</span>
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight mb-0.5 group-hover:text-blue-300 transition-colors">
+                  {project.title}
+                </h3>
+                <div className="text-xs text-slate-400 mb-2.5 font-medium">
+                  {project.subtitle}
+                </div>
+
+                {/* Highlight Pill */}
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[11px] font-mono mb-2.5">
+                  <Zap className="w-3 h-3 text-blue-400 shrink-0" />
+                  <span className="truncate">{project.highlight}</span>
+                </div>
+
+                {/* Description (Clean, concise) */}
+                <p className="text-xs text-slate-300 leading-relaxed mb-3 line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* Tech Pills (Compact) */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono text-slate-300 bg-white/[0.03] border border-white/[0.06]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 border-t border-white/[0.06] flex items-center gap-2">
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors"
+                  >
+                    <span>Live Demo</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                )}
+
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 transition-colors"
+                  >
+                    <FolderGit2 className="w-3.5 h-3.5" />
+                    <span>GitHub Code</span>
+                  </a>
+                )}
+
+                <button
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="ml-auto text-[11px] font-mono text-slate-400 hover:text-blue-400 transition-colors cursor-pointer"
+                >
+                  Need similar? →
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   )
 }
-
-function ProjectCard({ project, index, visible }) {
-  const [isHovered, setIsHovered] = useState(false)
-
-  return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-xl p-5 sm:p-6 transition-all duration-500"
-      style={{
-        background: 'var(--card)',
-        border: `1px solid ${isHovered ? project.color : 'var(--border)'}`,
-        boxShadow: isHovered ? `0 12px 30px -10px ${project.color}33` : 'none',
-        transform: visible
-          ? isHovered ? 'translateY(-8px)' : 'translateY(0)'
-          : 'translateY(40px)',
-        opacity: visible ? 1 : 0,
-        transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`,
-      }}
-    >
-      <div>
-        {/* Top bar with ID, Category & Featured indicator */}
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded text-[11px] sm:text-xs font-bold tracking-widest font-mono border border-white/10 text-white bg-white/5">
-              {project.id}
-            </span>
-            <span className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase font-mono" style={{ color: project.color }}>
-              {project.category}
-            </span>
-          </div>
-
-          {project.featured && (
-            <span
-              className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded text-[9px] sm:text-[10px] font-extrabold tracking-widest font-mono uppercase shrink-0"
-              style={{
-                background: project.color,
-                color: 'var(--primary-foreground)',
-              }}
-            >
-              FEATURED
-            </span>
-          )}
-        </div>
-
-        {/* Project Title */}
-        <h3 className="text-lg sm:text-xl font-bold mb-3 tracking-tight transition-colors duration-300" style={{ color: 'var(--foreground)' }}>
-          {project.title}
-        </h3>
-
-        {/* Description */}
-        <p className="text-xs sm:text-sm leading-relaxed mb-6" style={{ color: 'rgba(232, 232, 240, 0.75)' }}>
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-[11px] sm:text-xs tracking-wide font-mono rounded border transition-colors duration-300"
-              style={{
-                borderColor: isHovered ? `${project.color}aa` : 'rgba(255, 255, 255, 0.18)',
-                background: isHovered ? `${project.color}15` : 'rgba(255, 255, 255, 0.06)',
-                color: isHovered ? project.color : '#e8e8f0',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Action Links */}
-      <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
-        {project.link && (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-2 py-3 sm:py-2.5 px-3 rounded text-xs font-bold font-mono tracking-wider transition-all duration-300 border min-h-[40px]"
-            style={{
-              background: isHovered ? project.color : 'transparent',
-              color: isHovered ? 'var(--primary-foreground)' : 'var(--foreground)',
-              borderColor: isHovered ? project.color : 'rgba(255,255,255,0.15)',
-            }}
-          >
-            <span>LIVE DEMO</span>
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
-        )}
-
-        {project.github && (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noreferrer"
-            className="p-2.5 rounded text-xs font-mono transition-all duration-300 border hover:border-white/40"
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-              borderColor: 'var(--border)',
-              color: 'var(--muted-foreground)',
-            }}
-            title="View Source Code"
-          >
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-          </a>
-        )}
-      </div>
-    </div>
-  )
-}
-
-
